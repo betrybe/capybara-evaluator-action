@@ -129,12 +129,14 @@ rm geckodriver-v0.26.0-macos.tar.gz
 
 ### Executando os testes do corretor
 
-- Antes de executar os testes do corretor é necessário clonar o repositório a ser corrigido dentro do diretório `spec`
+- Antes de executar os testes do corretor é necessário clonar o repositório a ser corrigido dentro do diretório `spec` e clonar o repositório dos testes dentro do repositório a ser corrigido
 
     ```
     cd spec/
     git clone git@github.com:tryber/<project-repo-name>.git
-    cd ..
+    cd <project-repo-name>
+    git clone git@github.com:tryber/<project-repo-name>-tests.git
+    cd ../../
     ```
 
 - Para executar os testes basta utilizar o `rspec` com as variáveis de ambiente necessárias
@@ -151,8 +153,9 @@ Caso queira executar o corretor com o Docker para não precisar configurar seu a
 2. Clone o projeto: `git clone git@github.com:betrybe/capybara-evaluator-action.git`
 3. Entre no diretório dos testes do corretor: `cd capybara-evaluator-action/spec/`
 4. Clone o repositório a ser corrigido: `git clone git@github.com:tryber/<project-repo-name>.git`
-5. Volte ao diretório raiz do corretor: `cd ..`
-6. Crie a imagem do docker: `sudo docker build -t capybara-evaluator .`
+5. Clone o repositório dos testes dentro do repositório a ser corrigido: `cd <project-repo-name> && git clone git@github.com:tryber/<project-repo-name>.git`
+6. Volte ao diretório raiz do corretor: `cd ../../`
+7. Crie a imagem do docker: `sudo docker build -t capybara-evaluator .`
 
 Após configurar o docker, para executar os testes basta utilizar o comando abaixo:
 
