@@ -2,6 +2,9 @@
 
 if [ $GITHUB_ACTIONS ]
 then
+  git clone https://github.com/$GITHUB_REPOSITORY-tests.git /project-tests
+  rm -rf /project-tests/.git
+  cp -r /project-tests/* .
   mv requirements_mapping.json /capybara_evaluator_action/
   mkdir /capybara_evaluator_action/spec/$GITHUB_REPOSITORY -p
   mv ./* /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/
