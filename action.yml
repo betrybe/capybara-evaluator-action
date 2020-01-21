@@ -5,6 +5,8 @@ outputs:
     description: 'Evaluation JSON file in Base64 format'
   result:
     description: 'Tests results JSON file in base64 format'
+  pr-number:
+    description: 'Pull Request number that triggered the build'
 runs:
   using: 'docker'
   image: 'Dockerfile'
