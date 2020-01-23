@@ -14,8 +14,8 @@ else
 fi
 
 ls -lah
-ls -lah /usr/bin
-ls -lah /usr/local/bin
+ls -lah spec
+ls -lah spec/$GITHUB_REPOSITORY
 
 bundle exec rspec --format json --out evaluation.json
 
