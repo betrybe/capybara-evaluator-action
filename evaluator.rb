@@ -1,15 +1,15 @@
 require 'json'
+require 'net/http'
 
 GITHUB_USERNAME = (ENV['GITHUB_ACTOR'] || 'no_user').freeze
 GITHUB_REPOSITORY = (ENV['GITHUB_REPOSITORY'] || 'no_repository').freeze
 
-def path_for(file_name)
-  File.join(File.absolute_path('.'), '/', file_name)
-end
+requirements_mapping_file_path = File.join(File.absolute_path('.'), '/requirements_mapping.json')
+requirements_mapping = JSON.parse(File.read(requirements_mapping_file_path))
 
-requirements_mapping = JSON.parse(File.read(path_for('requirements_mapping.json')))
-
-evaluations = JSON.parse(File.read(path_for('evaluation.json')))['examples'].map do |evaluation|
+evaluations_file_path = File.join(File.absolute_path('.'), '/evaluation.json')
+evaluations_file = JSON.parse(File.read(evaluations_file_path))['examples']
+evaluations = evaluations_file.map do |evaluation|
   {
     requirement_id: requirements_mapping[evaluation['description']],
     grade: (evaluation['status'] == 'passed' && 3) || (evaluation['status'] == 'failed' && 1) || 0
@@ -22,4 +22,5 @@ result = {
   evaluations: evaluations
 }
 
-File.write(path_for('result.json'), result.to_json)
+evaluation_uri = URI('https://trybe-evaluation.herokuapp.com/evaluation')
+Net::HTTP.post(evaluation_uri, result.to_json, 'Content-Type' => 'application/json')

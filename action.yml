@@ -1,10 +1,10 @@
 name: 'Capybara evaluator'
 description: 'Capybara evaluator Action for Tryber projects'
 outputs:
-  evaluation:
+  time:
+    description: 'The time of the correction'
+  evaluation-in-base64:
     description: 'Evaluation JSON file in Base64 format'
-  result:
-    description: 'Tests results JSON file in base64 format'
 runs:
   using: 'docker'
   image: 'Dockerfile'
