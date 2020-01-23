@@ -2,9 +2,6 @@
 
 if [ $GITHUB_ACTIONS ]
 then
-  git clone https://github.com/$GITHUB_REPOSITORY-tests.git /project-tests
-  rm -rf /project-tests/.git
-  cp -r /project-tests/* .
   mv requirements_mapping.json /capybara_evaluator_action/
   mkdir /capybara_evaluator_action/spec/$GITHUB_REPOSITORY -p
   mv ./* /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/
@@ -23,6 +20,5 @@ then
   exit 1
 fi
 
-echo ::set-output name=evaluation::`cat evaluation.json | base64 -w 0`
 echo ::set-output name=result::`cat result.json | base64 -w 0`
-echo ::set-output name=pr-number::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
+echo ::set-output name=evaluation::`cat evaluation.json | base64 -w 0`

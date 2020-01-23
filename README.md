@@ -20,10 +20,6 @@ Arquivo JSON em formato base64 com a saída avaliada pelo RSpec.
 
 Arquivo JSON em formato base64 com o resultado, em notas por requisito, dos testes executados.
 
-### `pr-number`
-
-Número da Pull Request que disparou a build.
-
 ## Exemplo de uso
 ```yml
 uses: betrybe/capybara-evaluator-action
