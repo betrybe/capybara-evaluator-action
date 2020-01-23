@@ -10,8 +10,12 @@ then
   mv ./* /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/
   cd /capybara_evaluator_action
 else
-  mv /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/requirements_mapping.json .
+  mv /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/$GITHUB_REPOSITORY-tests/requirements_mapping.json .
 fi
+
+ls -lah
+ls -lah /usr/bin
+ls -lah /usr/local/bin
 
 bundle exec rspec --format json --out evaluation.json
 
@@ -24,8 +28,5 @@ then
 fi
 
 echo ::set-output name=evaluation::`cat evaluation.json | base64 -w 0`
-echo ::debug name=evaluation::`cat evaluation.json | base64 -w 0`
 echo ::set-output name=result::`cat result.json | base64 -w 0`
-echo ::debug name=result::`cat result.json | base64 -w 0`
 echo ::set-output name=pr-number::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
-echo ::debug name=pr-number::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
