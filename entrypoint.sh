@@ -1,17 +1,9 @@
 #!/bin/sh -l
 
-if [ $GITHUB_ACTIONS ]
-then
-  git clone https://github.com/$GITHUB_REPOSITORY-tests.git /project-tests
-  rm -rf /project-tests/.git
-  cp -r /project-tests/* .
-  mv requirements_mapping.json /capybara_evaluator_action/
-  mkdir /capybara_evaluator_action/spec/$GITHUB_REPOSITORY -p
-  mv ./* /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/
-  cd /capybara_evaluator_action
-else
-  mv /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/requirements_mapping.json .
-fi
+git clone https://github.com/$GITHUB_REPOSITORY.git -b test-action /capybara_evaluator_action/spec/project
+git clone https://github.com/$GITHUB_REPOSITORY-tests.git -b feature/set-hardcoded-project-path /capybara_evaluator_action/spec/project/project-test
+cp /capybara_evaluator_action/spec/project/project-test/requirements_mapping.json /capybara_evaluator_action
+cd /capybara_evaluator_action
 
 bundle exec rspec --format json --out evaluation.json
 
