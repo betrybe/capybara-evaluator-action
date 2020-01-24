@@ -4,7 +4,7 @@ REPO_NAME=$(echo $GITHUB_REPOSITORY | awk -F / '{print $2}')
 
 if [ $GITHUB_ACTIONS ]
 then
-  git clone https://github.com/$GITHUB_REPOSITORY-tests.git $REPO_NAME
+  git clone https://github.com/$GITHUB_REPOSITORY-tests.git $REPO_NAME-tests
   mv $REPO_NAME-tests/requirements_mapping.json /capybara_evaluator_action/
   mkdir /capybara_evaluator_action/spec/$REPO_NAME -p
   mv ./* /capybara_evaluator_action/spec/$REPO_NAME/
