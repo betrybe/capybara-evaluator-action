@@ -1,17 +1,19 @@
 #!/bin/sh -l
 
+REPO_NAME=$(echo $GITHUB_REPOSITORY | awk -F / '{print $2}')
+
 if [ $GITHUB_ACTIONS ]
 then
-  git clone https://github.com/$GITHUB_REPOSITORY-tests.git $GITHUB_REPOSITORY-tests
-  mv $GITHUB_REPOSITORY-tests/requirements_mapping.json /capybara_evaluator_action/
-  mkdir /capybara_evaluator_action/spec/$GITHUB_REPOSITORY -p
-  mv ./* /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/
+  git clone https://github.com/$GITHUB_REPOSITORY-tests.git $REPO_NAME
+  mv $REPO_NAME-tests/requirements_mapping.json /capybara_evaluator_action/
+  mkdir /capybara_evaluator_action/spec/$REPO_NAME -p
+  mv ./* /capybara_evaluator_action/spec/$REPO_NAME/
   cd /capybara_evaluator_action
 else
   mv /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/$GITHUB_REPOSITORY-tests/requirements_mapping.json .
 fi
 
-bundle exec rspec --format json --out evaluation.json
+GITHUB_REPOSITORY=$REPO_NAME bundle exec rspec --format json --out evaluation.json
 
 ruby evaluator.rb
 
