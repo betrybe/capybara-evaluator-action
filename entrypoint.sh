@@ -13,6 +13,12 @@ else
   mv /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/$GITHUB_REPOSITORY-tests/requirements_mapping.json .
 fi
 
+ls -lah
+ls -lah spec
+ls -lah spec/$REPO_NAME
+ls -lah spec/$REPO_NAME/$REPO_NAME-tests
+ls -lah spec/$REPO_NAME/$REPO_NAME-tests/spec
+
 GITHUB_REPOSITORY=$REPO_NAME bundle exec rspec --format json --out evaluation.json
 
 ruby evaluator.rb
