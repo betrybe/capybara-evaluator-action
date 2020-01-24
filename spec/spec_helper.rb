@@ -3,9 +3,6 @@ require 'capybara/dsl'
 require 'capybara/rspec'
 require 'pry'
 require 'rack/file'
-require 'selenium-webdriver'
-
-Selenium::WebDriver.logger.level = :debug
 
 Capybara.app = Rack::File.new(File.dirname(__FILE__))
 

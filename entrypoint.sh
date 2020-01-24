@@ -2,22 +2,16 @@
 
 if [ $GITHUB_ACTIONS ]
 then
-  git clone https://github.com/$GITHUB_REPOSITORY-tests.git /project-tests
-  rm -rf /project-tests/.git
-  cp -r /project-tests/* .
+  git clone https://github.com/$GITHUB_REPOSITORY-tests.git .
   mv requirements_mapping.json /capybara_evaluator_action/
-  mkdir /capybara_evaluator_action/spec/$GITHUB_REPOSITORY -p
-  mv ./* /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/
+  mkdir /capybara_evaluator_action/spec/project-repo -p
+  mv ./* /capybara_evaluator_action/spec/project-repo/
   cd /capybara_evaluator_action
 else
   mv /capybara_evaluator_action/spec/$GITHUB_REPOSITORY/$GITHUB_REPOSITORY-tests/requirements_mapping.json .
 fi
 
-ls -lah
-ls -lah spec
-ls -lah spec/$GITHUB_REPOSITORY
-
-bundle exec rspec --format json --out evaluation.json
+GITHUB_REPOSITORY=project-repo bundle exec rspec --format json --out evaluation.json
 
 ruby evaluator.rb
 
