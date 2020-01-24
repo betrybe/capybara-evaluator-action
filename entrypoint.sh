@@ -20,6 +20,6 @@ fi
 
 cat result.json
 
-# echo ::set-output name=evaluation::`cat evaluation.json | base64 -w 0`
-# echo ::set-output name=result::`cat result.json | base64 -w 0`
-# echo ::set-output name=pr-number::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
+echo ::set-output name=evaluation::`cat evaluation.json | base64 -w 0`
+echo ::set-output name=result::`cat result.json | base64 -w 0`
+echo ::set-output name=pr-number::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
